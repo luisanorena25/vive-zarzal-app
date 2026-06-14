@@ -1,0 +1,27 @@
+{
+  "name": "vive-zarzal-app",
+  "version": "0.0.1",
+  "description": "vive zarzal application",
+  "keywords": [
+    "nodejs",
+    "sequelize",
+    "express",
+    "docker",
+    "postgres"
+  ],
+  "homepage": "https://github.com/cristianco9/vive-zarzal-app.git)#readme",
+  "bugs": {
+    "url": "https://github.com/cristianco9/vive-zarzal-app.git)/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianco9/vive-zarzal-app.git).git"
+  },
+  "license": "MIT",
+  "author": "Cristian Camilo <cristianco9>",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
