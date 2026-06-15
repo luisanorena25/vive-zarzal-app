@@ -19,11 +19,13 @@ import { theIPAddress, port } from './libraries/netConfig.js';
 import routerApi from './router/index.js';
 // Custom error handling middlewares
 import {
-    logError,
-    errorHandler,
-    boomErrorHandler,
-    ORMErrorHandler
-} from "./middlewares/errorHandler.js";
+  logError,
+  errorHandler,
+  boomErrorHandler,
+  ORMErrorHandler
+} from './middlewares/errorHandler.js';
+// Import the setup of the database entities associations
+import { setupAssociations } from './db/models/index.js';
 
 // Create the app with Express
 const app = express();
@@ -53,35 +55,45 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Immediately Invoked Function Expression (IIFE) to run the server
+// Everything runs inside the IIFE to guarantee the correct execution order:
+// associations → DB connection → auth strategies → routes → error handlers → server
 (async () => {
+
+  // Set up all Sequelize model associations before any database query is made
+  // This is a memory-only operation and does not require an active DB connection
+  setupAssociations();
+
+  // Test database connection
+  // Await the connection test to ensure the database is reachable before accepting requests
+  await testConnection();
+
+  // Import passport authentication setup
+  // Await the dynamic import to ensure all auth strategies are loaded before routes are registered
+  await import('./utils/auth/index.js');
+
+  // Initialize the main router
+  // Set up API routes after associations and auth strategies are fully loaded
+  routerApi(app);
+
+  // Use custom error handling middlewares
+  // Error handlers must always be registered after all routes
+  // Middleware for logging errors
+  app.use(logError);
+  // Middleware for handling ORM errors
+  app.use(ORMErrorHandler);
+  // Middleware for handling Boom errors
+  app.use(boomErrorHandler);
+  // General error handling middleware
+  app.use(errorHandler);
+
   // Await the app to start listening on the specified IP address and port
-  const createApp = await app.listen(port, theIPAddress, (req, res) => {
+  // The server starts last to ensure everything is initialized before accepting connections
+  app.listen(port, theIPAddress, () => {
     // Log the server start information to the console
     console.log(`server on port http://${theIPAddress}:${port}`);
   });
+
 })();
-
-// Test database connection
-// Call the function to ensure the database connection is working
-testConnection();
-
-// Initialize the main router
-// Set up API routes
-routerApi(app);
-
-// Import passport authentication setup
-// Dynamic import of authentication module
-const passport = import('./utils/auth/index.js');
-
-// Use custom error handling middlewares
-// Middleware for logging errors
-app.use(logError);
-// Middleware for handling ORM errors
-app.use(ORMErrorHandler);
-// Middleware for handling Boom errors
-app.use(boomErrorHandler);
-// General error handling middleware
-app.use(errorHandler);
 
 // Export the app for use in other files
 export default app;
