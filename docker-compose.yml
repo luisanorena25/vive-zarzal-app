@@ -1,0 +1,45 @@
+services:
+
+  vive-zarzal-db:
+    image: postgres:17
+    container_name: vive-zarzal-db
+    restart: always
+
+    environment:
+      POSTGRES_DB: vive_zarzal_app
+      POSTGRES_USER: vive_zarzal_user
+      POSTGRES_PASSWORD: aa24d32b8b1cfe04a74f668fd58acddbccbe86a9a17a0eff52bb5830e3d1d652
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - vive_zarzal_db_data:/var/lib/postgresql/data
+
+    networks:
+      - vive-zarzal-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: vive-zarzal-rdbms
+    restart: always
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@vivezarzal.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - vive-zarzal-db
+
+    networks:
+      - vive-zarzal-network
+
+volumes:
+  vive_zarzal_db_data:
+
+networks:
+  vive-zarzal-network:
+    driver: bridge
