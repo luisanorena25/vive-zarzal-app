@@ -13,8 +13,8 @@ export const sequelize = new Sequelize(
   host: config.dbHost,
   // Specify the data base port
   port: config.dbPort,
-  // Specify the dialect as MySQL
-  dialect: 'mysql',
+  // Specify the dialect as PostgreSQL
+  dialect: 'postgres',
   // Enable logging of SQL queries to the console
   logging: console.log,
 });
