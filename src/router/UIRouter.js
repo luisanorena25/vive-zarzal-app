@@ -13,6 +13,7 @@ import { validatorHandler  } from '../middlewares/validatorHandler.js';
 export const UIRouter = Router();
 
 // Define a GET route for login view
+/*
 UIRouter.get(
   // Route path display the login view
   '/',
@@ -22,5 +23,6 @@ UIRouter.get(
   // proceeding to the controller
   //checkApiKey,
   // Controller function to render a login template
-  loginForm
+  //loginForm
 );
+*/
