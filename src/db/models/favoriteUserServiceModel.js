@@ -45,7 +45,7 @@ export const ServiceFavorite = sequelize.define(SERVICE_FAVORITE_TABLE, {
   sequelize,
   tableName: SERVICE_FAVORITE_TABLE,
   modelName: 'serviceFavorite',
-  timestamps: false,
+  timestamps: true,
   indexes: [
     {
       unique: true,

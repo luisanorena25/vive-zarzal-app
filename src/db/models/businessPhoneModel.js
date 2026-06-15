@@ -4,10 +4,10 @@ import { sequelize } from '../../libraries/DBConnection.js';
 import { DataTypes } from 'sequelize';
 
 // Define the name of the table
-export const BUSSINES_PHONE_TABLE = 'negocio_telefono';
+export const BUSINESS_PHONE_TABLE = 'negocio_telefono';
 
 // Define the BussinesPhone model
-export const BussinesPhone = sequelize.define(BUSSINES_PHONE_TABLE, {
+export const BusinessPhone = sequelize.define(BUSINESS_PHONE_TABLE, {
 
   // Primary key: id_negocio_telefono
   idBussinesPhone: {
@@ -36,8 +36,8 @@ export const BussinesPhone = sequelize.define(BUSSINES_PHONE_TABLE, {
 }, {
   // Additional model options
   sequelize,
-  tableName: BUSSINES_PHONE_TABLE,
-  modelName: 'bussinesPhone',
+  tableName: BUSINESS_PHONE_TABLE,
+  modelName: 'BusinessPhone',
   timestamps: false, // No createdAt / updatedAt in this table
   indexes: [
     {

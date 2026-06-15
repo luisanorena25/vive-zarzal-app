@@ -30,7 +30,6 @@ export const UserImage = sequelize.define(USER_IMAGE_TABLE, {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
         field: 'id_usuario',
         references: {
             model: 'usuario',
