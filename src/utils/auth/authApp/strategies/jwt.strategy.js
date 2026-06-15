@@ -8,7 +8,7 @@ const options = {
   // Extract JWT from the Authorization header as a Bearer token
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   // Secret key for verifying the JWT
-  secretOrKey: config.authAppJwtKey
+  secretOrKey: config.jwtSecretKey
 };
 
 /**
