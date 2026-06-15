@@ -1,30 +1,53 @@
-// Import configuration settings
+// database.config.js
+
+// Import application configuration
 import { config } from "../config/config.js";
 
-// Define and export the database configuration object
+// Sequelize database configuration
 const databaseConfig = {
 
-  // Development environment
+  // ==========================================
+  // DEVELOPMENT
+  // ==========================================
   development: {
-    username: config.dbRootUser,
-    password: config.dbRootPassword,
+    username: config.dbUser,
+    password: config.dbPassword,
     database: config.dbName,
     host: config.dbHost,
     port: config.dbPort,
-    dialect: "postgres",
+    dialect: config.dbDialect,
+
+    pool: {
+      max: config.dbPoolMax,
+      min: config.dbPoolMin,
+      acquire: config.dbPoolAcquire,
+      idle: config.dbPoolIdle,
+    },
+
     logging: console.log,
   },
 
-  // Production environment
+  // ==========================================
+  // PRODUCTION
+  // ==========================================
   production: {
-    username: config.dbRootUser,
-    password: config.dbRootPassword,
+    username: config.dbUser,
+    password: config.dbPassword,
     database: config.dbName,
     host: config.dbHost,
     port: config.dbPort,
-    dialect: "postgres",
+    dialect: config.dbDialect,
+
+    pool: {
+      max: config.dbPoolMax,
+      min: config.dbPoolMin,
+      acquire: config.dbPoolAcquire,
+      idle: config.dbPoolIdle,
+    },
+
     logging: false,
-  }
+  },
+
 };
 
 export default databaseConfig;
