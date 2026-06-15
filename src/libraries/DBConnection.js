@@ -6,8 +6,8 @@ import { config } from "../config/config.js";
 // Create a new instance of Sequelize with the provided URI and options
 export const sequelize = new Sequelize(
   config.dbName,
-  config.dbRootUser,
-  config.dbRootPassword,
+  config.dbUser,
+  config.dbPassword,
   {
   // Specify the data base host
   host: config.dbHost,
